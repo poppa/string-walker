@@ -1,0 +1,51 @@
+{
+  "name": "string-walker",
+  "version": "1.0.0",
+  "description": "Navigate within a string",
+  "main": "dist/string-walker.js",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "jest && exit 0",
+    "clean": "npx rimraf dist",
+    "dev": "npx tsc -w",
+    "build": "npm run clean && npx tsc",
+    "bump": "npm version patch -m 'Bumping version to %s'",
+    "pub": "npm run build && npm run test && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poppa/string-walker.git"
+  },
+  "keywords": [
+    "parser",
+    "tokenizer",
+    "string",
+    "walk"
+  ],
+  "author": {
+    "name": "Pontus Östlund",
+    "email": "poppanator@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/poppa/string-walker/issues"
+  },
+  "homepage": "https://github.com/poppa/string-walker#readme",
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.5",
+    "jest": "^24.9.0",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^24.1.0",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3",
+    "typescript-tslint-plugin": "^0.5.4"
+  },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  }
+}
