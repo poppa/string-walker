@@ -1,5 +1,5 @@
 /**
- * Class with methods to navigates within a string
+ * Class with methods to navigate within a string
  */
 export class StringWalker {
   /** The string to operate on */
@@ -46,7 +46,7 @@ export class StringWalker {
   }
 
   /**
-   * Move the cursor to the next position and the return the character code
+   * Moves the cursor to the next position and returns the character code
    * of the new position
    *
    * @see StringWalker.nextChar()
@@ -104,7 +104,7 @@ export class StringWalker {
    *
    * @param n Number of characters to peek
    * @returns The character code of the peeked positon, or `NaN` if peeking
-   * beyond the string end
+   * beyond the end of the string
    */
   public peek(n = 1) {
     if (this.cursor + n >= this.len) {
@@ -117,7 +117,7 @@ export class StringWalker {
   /**
    * @see StringWalker.peek()
    * @returns The character of the peeked positon, or `undefined` if peeking
-   * beyond the string end
+   * beyond the end of the string
    */
   public peekChar(n = 1) {
     if (this.cursor + n >= this.len) {
@@ -131,7 +131,7 @@ export class StringWalker {
    * Look `n` (default `1`) number of characters behind the current position.
    * @param n Number of characters to look behind
    * @returns The character code of the look behind character, or `NaN` if
-   * looking before the string start
+   * looking before the start of the string
    */
   public behind(n = 1) {
     n = n || 1
@@ -146,7 +146,7 @@ export class StringWalker {
   /**
    * @see StringWalker.behind()
    * @returns The character code of the look behind character, or `NaN` if
-   * looking before the string start
+   * looking before the start of the string
    */
   public behindChar(n = 1) {
     n = n || 1
@@ -206,7 +206,7 @@ export class StringWalker {
    *
    * @param chars List of characters to search for. This can either be
    * characters or character codes
-   * @returns The position of the first found character, or `NaN` if non was
+   * @returns The position of the first found character, or `NaN` if none was
    * found
    */
   public findNextOf(chars: Array<string | number>) {
@@ -240,7 +240,7 @@ export class StringWalker {
   /**
    * Move the internal cursor by `steps` number of positions
    * @param steps Steps to move the cursor by
-   * @throws An error if the cursor will move beyond the end, or ahead of
+   * @throws An error if the cursor will move beyond the end, or before
    * the start, of the string
    */
   public moveBy(steps: number) {
@@ -253,7 +253,7 @@ export class StringWalker {
   /**
    * Move the internal cursor to the postion `to`
    * @param to Position to move the cursor to
-   * @throws An error if the cursor will move beyond the end, or ahead of
+   * @throws An error if the cursor will move beyond the end, or before
    * the start, of the string
    */
   public moveTo(to: number) {
@@ -280,8 +280,9 @@ export class StringWalker {
   }
 
   /**
-   * Move the internal cursor forward as long as any character in `char` is
+   * Moves the internal cursor forward as long as any character in `char` is
    * consecutively found
+   *
    * @example
    * // Consume all consecutive whitespace
    * const s = new StringWalker('lorem \t\n ipsum')
