@@ -1,5 +1,5 @@
 import 'jest'
-import { StringWalker } from '../string-walker'
+import { StringWalker } from '../src/string-walker'
 
 describe('StringWalker tests', () => {
   test('Expect position to be zero after instantiation', () => {
