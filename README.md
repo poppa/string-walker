@@ -1,5 +1,5 @@
 # string-walker
-This is a simple class that lets you vavigate within a string. This is useful
+This is a simple class that lets you navigate within a string. This is useful
 when creating simple tokenizers for instance.
 
 # Examples
@@ -41,7 +41,7 @@ s
 
 **Tokenize a simple key/value file**
 
-Say we have a key/value file that allows for:
+Say we have a key/value file that allows for a syntax like:
 
 ```
 key1: strvalue
@@ -86,7 +86,7 @@ while (!s.isEof()) {
       const key = s.substring(s.position, end)
       tokens.push({ type: 'key', value: key })
 
-      // No move the cursor to where we found the character
+      // Now move the cursor to where we found the character
       s.moveTo(end)
 
       state = 'key'
@@ -94,7 +94,7 @@ while (!s.isEof()) {
       break
     }
 
-    // When state is `key` where expecting a delimiter
+    // When state is `key` we're expecting the next token to be a delimiter
     case 'key': {
       if (s.currentChar() !== ':') {
         throw new Error(`Syntax error: Expected : got ${s.currentChar()}`)
