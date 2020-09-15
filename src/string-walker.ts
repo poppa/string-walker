@@ -1,3 +1,5 @@
+type Maybe<T> = T | undefined
+
 /**
  * Class with methods to navigate within a string
  */
@@ -31,17 +33,17 @@ export class StringWalker {
   }
 
   /** Property getter for the current position within the string */
-  public get position() {
+  public get position(): number {
     return this.cursor
   }
 
   /** Property getter for the length of the string */
-  public get length() {
+  public get length(): number {
     return this.len
   }
 
   /** Check if the the cursor is at the end of the string */
-  public isEof() {
+  public isEof(): boolean {
     return this.cursor >= this.len
   }
 
@@ -54,7 +56,7 @@ export class StringWalker {
    * @returns The character code of the new position. If the next position is
    * the end of the string `NaN` is returned
    */
-  public next() {
+  public next(): number {
     if (this.cursor + 1 > this.len) {
       return NaN
     }
@@ -69,7 +71,7 @@ export class StringWalker {
    * @returns The character at the new position. If the next position is the
    * end of the string `undefined` is returned
    */
-  public nextChar() {
+  public nextChar(): Maybe<string> {
     if (this.cursor + 1 > this.len) {
       return undefined
     }
@@ -81,14 +83,14 @@ export class StringWalker {
   /**
    * Returns the character code of the current position
    */
-  public current() {
+  public current(): number {
     return this.data.charCodeAt(this.cursor)
   }
 
   /**
    * Returns the character of the current position
    */
-  public currentChar() {
+  public currentChar(): string {
     return this.data.charAt(this.cursor)
   }
 
@@ -106,7 +108,7 @@ export class StringWalker {
    * @returns The character code of the peeked positon, or `NaN` if peeking
    * beyond the end of the string
    */
-  public peek(n = 1) {
+  public peek(n = 1): number {
     if (this.cursor + n >= this.len) {
       return NaN
     }
@@ -119,7 +121,7 @@ export class StringWalker {
    * @returns The character of the peeked positon, or `undefined` if peeking
    * beyond the end of the string
    */
-  public peekChar(n = 1) {
+  public peekChar(n = 1): Maybe<string> {
     if (this.cursor + n >= this.len) {
       return undefined
     }
@@ -133,7 +135,7 @@ export class StringWalker {
    * @returns The character code of the look behind character, or `NaN` if
    * looking before the start of the string
    */
-  public behind(n = 1) {
+  public behind(n = 1): number {
     n = n || 1
 
     if (this.cursor - n < 0) {
@@ -148,7 +150,7 @@ export class StringWalker {
    * @returns The character code of the look behind character, or `NaN` if
    * looking before the start of the string
    */
-  public behindChar(n = 1) {
+  public behindChar(n = 1): Maybe<string> {
     n = n || 1
 
     if (this.cursor - n < 0) {
@@ -169,11 +171,12 @@ export class StringWalker {
    *
    * @see StringWalker.findNextOf()
    * @param char Either a character or a character code
+   * @throws An error is thrown if `char` is a string of length other than `1`
    * @returns The position of `char`, or `NaN` if `char` was not found
    */
-  public findNext(char: string | number) {
+  public findNext(char: string | number): number {
     if (typeof char === 'string') {
-      if (char.length > 1) {
+      if (char.length !== 1) {
         throw new Error('findNext() expected a single character')
       }
 
@@ -206,10 +209,12 @@ export class StringWalker {
    *
    * @param chars List of characters to search for. This can either be
    * characters or character codes
+   * @throws An error is thrown if `chars` contains a string of length
+   * other than `1`
    * @returns The position of the first found character, or `NaN` if none was
    * found
    */
-  public findNextOf(chars: Array<string | number>) {
+  public findNextOf(chars: Array<string | number>): number {
     const x = chars.map((c) => {
       if (typeof c === 'string') {
         if (c.length > 1) {
@@ -243,7 +248,7 @@ export class StringWalker {
    * @throws An error if the cursor will move beyond the end, or before
    * the start, of the string
    */
-  public moveBy(steps: number) {
+  public moveBy(steps: number): this {
     this.assertSaneStart(this.cursor + steps)
     this.assertSaneEnd(this.cursor + steps)
     this.cursor += steps
@@ -256,7 +261,7 @@ export class StringWalker {
    * @throws An error if the cursor will move beyond the end, or before
    * the start, of the string
    */
-  public moveTo(to: number) {
+  public moveTo(to: number): this {
     this.assertSaneStart(to)
     this.assertSaneEnd(to)
     this.cursor = to
@@ -267,7 +272,7 @@ export class StringWalker {
    * Returns the character code of the character at position `pos`
    * @param pos The position to get the character code for
    */
-  public at(pos: number) {
+  public at(pos: number): number {
     return this.data.charCodeAt(pos)
   }
 
@@ -275,7 +280,7 @@ export class StringWalker {
    * Returns the character at position `pos`
    * @param pos The position to get the character of
    */
-  public charAt(pos: number) {
+  public charAt(pos: number): string {
     return this.data.charAt(pos)
   }
 
@@ -292,7 +297,7 @@ export class StringWalker {
    *
    * @param char A character, character code or array of these
    */
-  public consume(char: string | number | string[] | number[]) {
+  public consume(char: string | number | string[] | number[]): this {
     if (!Array.isArray(char)) {
       if (typeof char === 'string') {
         char = char.charCodeAt(0)
@@ -321,7 +326,7 @@ export class StringWalker {
   /**
    * Reset the internal cursor to position `0`
    */
-  public rewind() {
+  public rewind(): this {
     this.cursor = 0
     return this
   }
@@ -335,13 +340,13 @@ export class StringWalker {
    *
    * @returns The substring of `from` to `to`
    */
-  public substring(from: number, to?: number) {
+  public substring(from: number, to?: number): string {
     if (!to) {
       to = this.length
     }
 
     if (from > to) {
-      throw new Error(`from (${from}) can to be greater than (${to})`)
+      throw new Error(`from (${from}) can not be greater than (${to})`)
     }
 
     this.assertSaneStart(from)
@@ -354,7 +359,7 @@ export class StringWalker {
    * Throws an error if `n` is less than `0`
    * @param n
    */
-  protected assertSaneStart(n: number) {
+  protected assertSaneStart(n: number): void {
     if (n < 0) {
       throw new Error(`Start position ${n} is less than zero`)
     }
@@ -364,10 +369,11 @@ export class StringWalker {
    * Throws an error if `n` is greater than {@see StringWalker#length}
    * @param n
    */
-  protected assertSaneEnd(n: number) {
+  protected assertSaneEnd(n: number): void {
     if (n > this.len) {
-      throw new Error(`End position ${n} is greater than the string length ${
-        this.len}`)
+      throw new Error(
+        `End position ${n} is greater than the string length ${this.len}`
+      )
     }
   }
 }

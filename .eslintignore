@@ -1,0 +1,6 @@
+*.d.ts
+*.js
+lib
+dist
+docs
+node_modules
