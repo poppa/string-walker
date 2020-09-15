@@ -1,6 +1,6 @@
 {
   "name": "string-walker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Navigate within a string",
   "main": "dist/string-walker.js",
   "files": [
@@ -13,7 +13,7 @@
     "clean": "rimraf dist",
     "dev": "yarn tsc -w",
     "build": "yarn run clean && tsc",
-    "bump": "yarn version patch -m 'Bumping version to %s'",
+    "bump": "yarn lint && yarn version --patch -m 'Bumping version to %s'",
     "pub": "yarn run build && yarn run test && yarn publish",
     "lint": "yarn eslint src/**/*.ts --quiet"
   },
