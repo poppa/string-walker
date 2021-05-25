@@ -12,7 +12,7 @@
     "test": "jest && exit 0",
     "clean": "rimraf dist",
     "dev": "yarn tsc -w",
-    "build": "yarn run clean && tsc",
+    "build": "yarn run clean && jest && tsc",
     "bump": "yarn lint && yarn version --patch -m 'Bumping version to %s'",
     "pub": "yarn run build && yarn run test && yarn publish",
     "lint": "yarn eslint src/**/*.ts --quiet"
