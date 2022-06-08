@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [1.0.6] - 2022-06-08
+
+Fixed error in previous build where the dist directory was missed
+
 ## [1.0.5] - 2022-06-08
 
 Version bump only to get things in sync.
