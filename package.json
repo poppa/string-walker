@@ -14,7 +14,7 @@
     "dev": "yarn tsc -w",
     "build": "yarn run clean && jest && tsc",
     "bump": "yarn lint && yarn version --patch -m 'Bumping version to %s'",
-    "pub": "yarn run build && yarn run test && yarn publish",
+    "pub": "yarn run build && yarn publish",
     "lint": "yarn eslint src/**/*.ts --quiet"
   },
   "repository": {
